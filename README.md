@@ -1,35 +1,29 @@
-# 🏠 Airbnb 
+# 🏡 Airbnb Backend
 
-> ⚠️ This project is currently **Work In Progress (WIP)**.
-> Features, routes, validation behavior, and architecture may change as development continues.
+## Overview
 
----
+This is a **backend-focused Airbnb-style application** built with **Node.js, Express, and MongoDB** following the MVC architectural pattern. The application provides authentication and authorization workflows, session-based user management, image upload handling, and CRUD operations for property listings and user favourites.
 
-## 📌 Overview
-
-This is a **backend-focused Airbnb-style application** built with **Node.js and Express** following an MVC architecture.
-It supports user authentication and authorization, session-based login state, image upload handling, and route-driven REST-style operations for homes and favourites.
-
-The project is primarily aimed at learning and implementing **real-world backend development concepts** such as session lifecycle management, protected routing, structured controllers, and scalable project organization.
+The project was developed to implement **real-world backend engineering concepts**, including secure authentication, session persistence, route protection, request validation, file handling, and scalable application architecture. It emphasizes clean code organization, maintainability, and industry-standard backend development practices.
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
-*  Authentication with signup / login / logout flow
-*  Authorization using protected host routes
+*  Authentication with signup / login / logout flow.
+*  Authorization using protected host routes.
 *  Session management with cookies (`express-session`)
-*  Persistent session storage in MongoDB (`connect-mongodb-session`)
-*  Password hashing using `bcryptjs`
-*  File upload support for home photos using `multer`
-*  Validation and sanitization using `express-validator`
-*  CRUD-style operations for homes
-*  Favourite management for users
-*  Server-side rendering with EJS templates
+*  Persistent session storage in MongoDB (`connect-mongodb-session`).
+*  Password hashing using `bcryptjs`.
+*  File upload support for home photos using `multer`.
+*  Validation and sanitization using `express-validator`.
+*  CRUD-style operations for property listings.
+*  Favourite management for users.
+*  Server-side rendering with EJS templates.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 * **Runtime:** Node.js
 * **Server Framework:** Express.js
@@ -43,7 +37,7 @@ The project is primarily aimed at learning and implementing **real-world backend
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 controllers/    # Request handlers / business logic
@@ -58,7 +52,7 @@ app.js          # Application entry point
 
 ---
 
-## 🔐 Environment Variables
+##  Environment Variables
 
 Create a `.env` file in the project root:
 
@@ -69,21 +63,21 @@ PORT=5000
 
 ---
 
-## ⚙️ Installation & Run
+##  Installation & Run
 
-### 1️⃣ Install dependencies
+### 1️. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2️⃣ Start development mode (server + Tailwind watcher)
+### 2️. Start development mode (server + Tailwind watcher)
 
 ```bash
 npm start
 ```
 
-### 3️⃣ Open in browser
+### 3. Open in browser
 
 ```
 http://localhost:5000
@@ -91,9 +85,9 @@ http://localhost:5000
 
 ---
 
-## 🌐 Main Routes
+##  Main Routes
 
-### 🔑 Auth
+### Auth
 
 * `GET /login`
 * `POST /login`
@@ -101,7 +95,7 @@ http://localhost:5000
 * `GET /signup`
 * `POST /signup`
 
-### 👤 Store / User
+### Store / User
 
 * `GET /`
 * `GET /homes`
@@ -111,7 +105,7 @@ http://localhost:5000
 * `POST /favourites`
 * `POST /favourites/delete/:homeId`
 
-### 🏡 Host (Protected)
+### Host (Protected)
 
 * `GET /host/add-home`
 * `POST /host/add-home`
@@ -122,13 +116,15 @@ http://localhost:5000
 
 ---
 
-## 🚧 Current Status
+##  Future Enhancements
 
-This codebase is under **active development**. Upcoming improvements may include:
+Potential improvements and planned enhancements include:
 
-* 📚 Better API documentation & route coverage
-* ⚠️ Improved centralized error handling & logging
-* 👥 Role-based authorization enhancements
-* 🧪 Automated test coverage
-* 🔒 Security hardening (session & cookie configuration)
-
+* Enhanced user interface and improved user experience
+* Expanded API documentation and developer guides
+* Centralized error handling and structured logging
+* Advanced role-based access control (RBAC)
+* Automated testing and improved test coverage
+* Additional security enhancements for sessions and cookies
+* Search, filtering, and pagination for property listings
+* Performance optimization and scalability improvements
