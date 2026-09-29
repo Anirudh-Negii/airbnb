@@ -3,7 +3,7 @@
   </head>
   <body class="bg-gray-100">
     <%- include('../partials/nav') %>
-    <main class="container mx-auto mt-8 p-8 bg-white rounded-lg shadow-md max-w-2xl">
+    <main class="form-shell">
       <h1 class="text-3xl font-bold mb-6 text-center text-gray-800 border-b pb-4">Create Your Account</h1>
       
       <form action="/signup" method="POST" class="max-w-md mx-auto">
@@ -120,7 +120,7 @@
         </div> 
 
         <!-- Submit button with animation -->
-        <button type="submit" class="w-full bg-red-500 text-white py-3 rounded-md hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium transition duration-300 flex items-center justify-center">
+        <button type="submit" class="button button-full">
           <span>Register</span>
           <i class="fas fa-arrow-right ml-2"></i>
         </button>
