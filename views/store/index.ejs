@@ -12,11 +12,81 @@
               <h3><%= home.houseName %></h3>
               <p class="location">&#9906; <%= home.location %></p>
               <div class="card-meta"><span class="price">Rs<%= home.price %> / night</span><span class="rating"><span>&#9733;</span> <%= home.rating %></span></div>
-              <button class="button button-full" type="button">Book a stay</button>
+              <button class="button button-full booking-trigger" type="button" data-home-name="<%= home.houseName %>">Book a stay</button>
             </div>
           </div>
         <% }) %>
       </div>
     </main>
+    <div id="booking-modal" class="booking-modal" aria-hidden="true">
+      <div class="booking-backdrop" data-booking-close></div>
+      <section class="booking-dialog" role="dialog" aria-modal="true" aria-labelledby="booking-title">
+        <button class="booking-close" type="button" aria-label="Close booking window" data-booking-close>&times;</button>
+        <span class="eyebrow">Plan your escape</span>
+        <h2 id="booking-title">Book your stay</h2>
+        <p class="booking-property" id="booking-property"></p>
+        <form id="booking-form" class="booking-form">
+          <div class="booking-date-grid">
+            <label class="field">Check-in<input id="booking-start" type="date" required></label>
+            <label class="field">Check-out<input id="booking-end" type="date" required></label>
+          </div>
+          <button class="button button-full" type="submit">Confirm booking <span aria-hidden="true">&#8599;</span></button>
+        </form>
+      </section>
+    </div>
+    <div id="booking-toast" class="booking-toast" role="status" aria-live="polite"></div>
+    <script>
+      const bookingModal = document.getElementById('booking-modal');
+      const bookingForm = document.getElementById('booking-form');
+      const bookingStart = document.getElementById('booking-start');
+      const bookingEnd = document.getElementById('booking-end');
+      const bookingProperty = document.getElementById('booking-property');
+      const bookingToast = document.getElementById('booking-toast');
+      const pad = value => String(value).padStart(2, '0');
+      const formatDate = date => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+      const tomorrow = new Date();
+      tomorrow.setHours(0, 0, 0, 0);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const tomorrowValue = formatDate(tomorrow);
+      bookingStart.min = tomorrowValue;
+      bookingEnd.min = formatDate(new Date(tomorrow.getTime() + 86400000));
+
+      document.querySelectorAll('.booking-trigger').forEach(button => {
+        button.addEventListener('click', () => {
+          bookingProperty.textContent = button.dataset.homeName;
+          bookingForm.reset();
+          bookingStart.min = tomorrowValue;
+          bookingEnd.min = formatDate(new Date(tomorrow.getTime() + 86400000));
+          bookingModal.classList.add('is-open');
+          bookingModal.setAttribute('aria-hidden', 'false');
+          bookingStart.focus();
+        });
+      });
+
+      bookingStart.addEventListener('change', () => {
+        if (!bookingStart.value) return;
+        const nextDay = new Date(`${bookingStart.value}T00:00:00`);
+        nextDay.setDate(nextDay.getDate() + 1);
+        bookingEnd.min = formatDate(nextDay);
+        if (bookingEnd.value && bookingEnd.value < bookingEnd.min) bookingEnd.value = '';
+      });
+
+      const closeBookingModal = () => {
+        bookingModal.classList.remove('is-open');
+        bookingModal.setAttribute('aria-hidden', 'true');
+      };
+      document.querySelectorAll('[data-booking-close]').forEach(element => element.addEventListener('click', closeBookingModal));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && bookingModal.classList.contains('is-open')) closeBookingModal();
+      });
+      bookingForm.addEventListener('submit', event => {
+        event.preventDefault();
+        if (!bookingStart.value || !bookingEnd.value || bookingEnd.value <= bookingStart.value) return;
+        closeBookingModal();
+        bookingToast.textContent = `Booking confirmed for ${bookingProperty.textContent}`;
+        bookingToast.classList.add('is-visible');
+        window.setTimeout(() => bookingToast.classList.remove('is-visible'), 3500);
+      });
+    </script>
   </body>
 </html>
